@@ -1046,6 +1046,9 @@
             else if ([string isEqualToString:PTPencilKitDrawingToolKey]) {
                 toolManager.pencilDrawingAnnotationOptions.canCreate = value;
             }
+            else if ([string isEqualToString:PTAnnotationSmartPenToolKey]) {
+                toolManager.smartPenEnabled = value;
+            }
         }
     }
 }
@@ -3066,6 +3069,10 @@
         // TODO
     } else if ([toolMode isEqualToString:PTPencilKitDrawingToolKey]) {
         toolClass = [PTPencilDrawingCreate class];
+    } else if ([toolMode isEqualToString:PTAnnotationSmartPenToolKey]) {
+        toolClass = [PTSmartPen class];
+    } else if ([toolMode isEqualToString:PTPanToolKey]) {
+        toolClass = [PTPanTool class];
     }
 
     if (toolClass) {
@@ -3853,6 +3860,18 @@
     }
     else if ([key isEqualToString:PTAnnotationCreateFreeHighlighterToolKey]) {
         return [PTFreeHandHighlightCreate class];
+    }
+    else if ([key isEqualToString:PTEraserToolKey]) {
+        return [PTEraser class];
+    }
+    else if ([key isEqualToString:PTPanToolKey]) {
+        return [PTPanTool class];
+    }
+    else if ([key isEqualToString:PTAnnotationSmartPenToolKey]) {
+        return [PTSmartPen class];
+    }
+    else if ([key isEqualToString:PTPencilKitDrawingToolKey]) {
+        return [PTPencilDrawingCreate class];
     }
 
     return Nil;

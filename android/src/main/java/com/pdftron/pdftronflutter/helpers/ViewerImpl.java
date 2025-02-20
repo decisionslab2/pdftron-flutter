@@ -234,6 +234,11 @@ public class ViewerImpl {
         }
 
         @Override
+        public void onPagesMoved(List<Integer> pagesMoved, int to, int currentPage) {
+
+        }
+
+        @Override
         public void onPageLabelsChanged() {
 
         }

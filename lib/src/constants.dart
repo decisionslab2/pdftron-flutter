@@ -11,6 +11,7 @@ class Functions {
   /// Android only
   static const getSavedSignatureJpgFolder = "getSavedSignatureJpgFolder";
   static const importAnnotations = "importAnnotations";
+  static const mergeAnnotations = "mergeAnnotations";
   static const exportAnnotations = "exportAnnotations";
   static const flattenAnnotations = "flattenAnnotations";
   static const deleteAnnotations = "deleteAnnotations";
@@ -241,12 +242,11 @@ class Tools {
   static const formCreateRadioField = 'FormCreateRadioField';
   static const formCreateComboBoxField = 'FormCreateComboBoxField';
   static const formCreateListBoxField = 'FormCreateListBoxField';
+  static const annotationSmartPen = 'AnnotationSmartPen';
+  static const pan = 'Pan';
 
   /// iOS only.
   static const pencilKitDrawing = 'PencilKitDrawing';
-
-  /// Android only.
-  static const annotationSmartPen = 'AnnotationSmartPen';
 
   /// Android only.
   static const annotationLasso = 'AnnotationLasso';
