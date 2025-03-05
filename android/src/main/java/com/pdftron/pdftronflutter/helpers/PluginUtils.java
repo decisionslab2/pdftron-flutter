@@ -59,7 +59,6 @@ import com.pdftron.pdf.widget.bottombar.builder.BottomBarBuilder;
 import com.pdftron.pdf.widget.toolbar.builder.AnnotationToolbarBuilder;
 import com.pdftron.pdf.widget.toolbar.builder.ToolbarButtonType;
 import com.pdftron.pdf.widget.toolbar.component.DefaultToolbars;
-import com.pdftron.pdf.tools.R;
 import com.pdftron.pdf.PDFDraw;
 
 import org.apache.commons.io.FileUtils;
@@ -81,6 +80,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
+
+import com.pdftron.pdftronflutter.R;
 
 public class PluginUtils {
 
@@ -1818,7 +1819,7 @@ public class PluginUtils {
             menuStr = MENU_ID_STRING_DELETE;
         } else if (id == R.id.qm_flatten) {
             menuStr = MENU_ID_STRING_FLATTEN;
-        } else if (id == R.id.qm_sharedecisions) {
+        } else if (id == com.pdftron.pdftronflutter.R.id.qm_sharedecisions) {
             menuStr = MENU_ID_STRING_SHAREDECISIONS;
         }else if (id == R.id.qm_text) {
             menuStr = MENU_ID_STRING_TEXT;
