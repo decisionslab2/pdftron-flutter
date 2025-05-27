@@ -60,6 +60,7 @@ import com.pdftron.pdf.widget.toolbar.builder.AnnotationToolbarBuilder;
 import com.pdftron.pdf.widget.toolbar.builder.ToolbarButtonType;
 import com.pdftron.pdf.widget.toolbar.component.DefaultToolbars;
 import com.pdftron.pdf.PDFDraw;
+import com.pdftron.pdf.tools.R;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -80,8 +81,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
-
-import com.pdftron.pdftronflutter.R;
 
 public class PluginUtils {
 
