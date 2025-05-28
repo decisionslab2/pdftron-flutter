@@ -1227,16 +1227,8 @@ static BOOL PT_addMethod(Class cls, SEL selector, void (^block)(id))
 - (void)applyNavIcon
 {
     if (self.showNavButton) {
-        UIBarButtonItem *navButton;
-        if (self.isReadOnly) {
-            navButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                       target:self
-                                                                       action:@selector(topLeftButtonPressed:)];
-        } else {
-            navButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
-                                                                       target:self
-                                                                       action:@selector(topLeftButtonPressed:)];
-        }
+        UIBarButtonItem* navButton = navButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(topLeftButtonPressed:)];
+        
         self.leadingNavButtonItem = navButton;
         
         NSArray<UIBarButtonItem *> *compactItems = [self.navigationItem leftBarButtonItemsForSizeClass:UIUserInterfaceSizeClassCompact];
