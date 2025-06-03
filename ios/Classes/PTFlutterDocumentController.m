@@ -1227,6 +1227,8 @@ static BOOL PT_addMethod(Class cls, SEL selector, void (^block)(id))
 - (void)applyNavIcon
 {
     if (self.showNavButton) {
+        [self disableThumbnailActions];
+        
         UIBarButtonItem* navButton = navButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(topLeftButtonPressed:)];
         
         self.leadingNavButtonItem = navButton;
@@ -1256,6 +1258,20 @@ static BOOL PT_addMethod(Class cls, SEL selector, void (^block)(id))
                                                 animated:NO];
     }
 }
+
+- (void)disableThumbnailActions
+{
+    @try {
+        self.thumbnailsViewController.addPagesEnabled = NO;
+        self.thumbnailsViewController.rotatePagesEnabled = NO;
+        self.thumbnailsViewController.deletePagesEnabled = NO;
+        self.thumbnailsViewController.duplicatePagesEnabled = NO;
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Error disabling thumbnail actions: %@", exception);
+    }
+}
+
 
 - (void)applyHideThumbnailFilterModes
 {
