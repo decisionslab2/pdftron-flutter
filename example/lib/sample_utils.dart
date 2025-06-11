@@ -10,26 +10,32 @@ import 'package:path/path.dart' as p;
 class SampleUtils {
   static Config annotateConfig(String userID, String userDisplayName) {
     Config config = Config();
+
+    List<Object>? tools = [
+      Buttons.stickyToolButton,
+      Buttons.freeHandToolButton,
+      Buttons.freeTextToolButton,
+      Buttons.highlightToolButton,
+      Buttons.redo,
+      Buttons.undo,
+    ];
+
     CustomToolbar customToolBar = CustomToolbar(
-        '01',
-        "Annotate",
-        [
-          Buttons.stickyToolButton,
-          Buttons.freeHandToolButton,
-          Buttons.freeTextToolButton,
-          Buttons.highlightToolButton,
-          Buttons.redo,
-          Buttons.undo,
-        ],
-        ToolbarIcons.annotate);
+      '01',
+      "Annotate",
+      tools,
+      ToolbarIcons.annotate,
+    );
 
     config.annotationToolbars = [DefaultToolbars.view, customToolBar];
     config.longPressMenuItems = ["delete"];
     config.thumbnailViewEditingEnabled = true;
+    config.autoResizeFreeTextEnabled = true;
     config.outlineListEditingEnabled = false;
+    config.selectAnnotationAfterCreation = false;
+    config.fitMode = FitModes.fitPage;
     config.downloadDialogEnabled = false;
     config.topAppNavBarRightBar = [Buttons.searchButton];
-    config.autoResizeFreeTextEnabled = true;
     config.showDocumentSavedToast = false;
 
     config.hideDefaultAnnotationToolbars = [
@@ -60,11 +66,12 @@ class SampleUtils {
       Buttons.thumbnailsButton,
     ];
     config.disabledTools = [
-      Tools.pencilKitDrawing,
+      Tools.pencilKitDrawing, //NE
       Tools.formCreateComboBoxField,
       Tools.annotationEdit,
-      Tools.annotationSmartPen,
+      Tools.annotationSmartPen, //NE
       Tools.annotationCreateTextStrikeout,
+      //Tools.annotationCreateFreeHand //NE
     ];
 
     config.annotationMenuItems = [
@@ -82,17 +89,20 @@ class SampleUtils {
     config.userName = userDisplayName;
     config.annotationAuthor = userDisplayName;
     config.rememberLastUsedTool = true;
+    config.pageChangeOnTap = false;
+    config.hideToolbarsOnTap = false;
+    config.imageInReflowModeEnabled = false;
     config.continuousAnnotationEditing = true;
     return config;
   }
 
   Future<String?> getSampleFile() async {
     try {
-      String? localPath =
-          await getCachedFilePathByName(fileName: "newSample2.pdf");
+      String newFileName = "newSample.pdf";
+      String? localPath = await getCachedFilePathByName(fileName: newFileName);
 
       if (localPath != null) {
-        print('Cached file found: $localPath');
+        print('Cached file found: $newFileName');
         return localPath;
       }
       print('Cached file not found:newSample.pdf');
@@ -101,7 +111,7 @@ class SampleUtils {
               "https://drive.google.com/uc?export=download&id=1Tq7etabrdQTd9wYMeUuVXzfzFBXy2e5d",
           //'https://drive.google.com/uc?export=download&id=1R6K33q8CrUuzF1CDdXPD25-Gxr9v9LgO',
           foldername: "SampleBooks",
-          filename: "newSample2.pdf");
+          filename: newFileName);
       return download.path;
     } catch (e) {
       print('Error finding cached file: $e');
