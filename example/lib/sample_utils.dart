@@ -187,7 +187,6 @@ class SampleUtils {
       );
       var bytes = response.data as Uint8List;
       print(file.path);
-      print("File loaded");
       await file.writeAsBytes(bytes);
       return file;
     } catch (e) {
