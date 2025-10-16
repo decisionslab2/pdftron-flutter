@@ -1,3 +1,18 @@
+# 1.0.1-49 - October 15, 2025
+- Performance update for the `importAnnotations()` API on iOS
+
+# 1.0.1-48 - September 25, 2025
+- Update Android to v11.8.0
+
+# 1.0.1-47 - August 18, 2025
+- Update Android to v11.7.0
+
+# 1.0.1-46 - July 8, 2025
+- Update Android to v11.6.0
+
+# 1.0.1-45 - Jun 10, 2025
+- Update Android to embedding v2
+
 # 1.0.1-44 - May 28, 2025
 - Update Android to v11.5.0
 
