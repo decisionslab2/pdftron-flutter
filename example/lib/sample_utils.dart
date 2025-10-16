@@ -76,7 +76,7 @@ class SampleUtils {
 
     config.annotationMenuItems = [
       AnnotationMenuItems.share,
-      AnnotationMenuItems.delete
+      AnnotationMenuItems.delete,
     ];
     config.longPressMenuEnabled = true;
     config.annotationToolbarAlignment = ToolbarAlignment.End;
@@ -107,11 +107,12 @@ class SampleUtils {
       }
       print('Cached file not found:newSample.pdf');
       var download = await downloadFileToDevice(
-          url:
-              "https://drive.google.com/uc?export=download&id=1Tq7etabrdQTd9wYMeUuVXzfzFBXy2e5d",
-          //'https://drive.google.com/uc?export=download&id=1R6K33q8CrUuzF1CDdXPD25-Gxr9v9LgO',
-          foldername: "SampleBooks",
-          filename: newFileName);
+        url:
+            "https://drive.google.com/uc?export=download&id=1Tq7etabrdQTd9wYMeUuVXzfzFBXy2e5d",
+        //'https://drive.google.com/uc?export=download&id=1R6K33q8CrUuzF1CDdXPD25-Gxr9v9LgO',
+        foldername: "SampleBooks",
+        filename: newFileName,
+      );
       return download.path;
     } catch (e) {
       print('Error finding cached file: $e');
@@ -132,15 +133,18 @@ class SampleUtils {
     required String folderName,
     required String? fileName,
   }) async {
-    return await _initDirectoryLookUp(folderName: folderName)
-        .then((value) async {
+    return await _initDirectoryLookUp(folderName: folderName).then((
+      value,
+    ) async {
       return io.File(
-          await getFilePath(folderName: folderName, fileName: fileName));
+        await getFilePath(folderName: folderName, fileName: fileName),
+      );
     });
   }
 
-  static Future<io.Directory> _initDirectoryLookUp(
-      {required String folderName}) async {
+  static Future<io.Directory> _initDirectoryLookUp({
+    required String folderName,
+  }) async {
     print("Checking directory: $folderName");
     if (!await _checkDirectoryExist(folderName: folderName)) {
       print("Directory does not exist");
@@ -153,9 +157,9 @@ class SampleUtils {
   }
 
   static Future<bool> _checkDirectoryExist({required String folderName}) async {
-    bool isExist =
-        await io.Directory(await getDirectoryPath(folderName: folderName))
-            .exists();
+    bool isExist = await io.Directory(
+      await getDirectoryPath(folderName: folderName),
+    ).exists();
     print("$folderName Directory Exist: $isExist");
     return isExist;
   }
@@ -181,9 +185,7 @@ class SampleUtils {
       Dio newDio = Dio();
       var response = await newDio.get(
         url,
-        options: Options(
-          responseType: ResponseType.bytes,
-        ),
+        options: Options(responseType: ResponseType.bytes),
       );
       var bytes = response.data as Uint8List;
       print(file.path);
@@ -213,16 +215,18 @@ class SampleUtils {
     }
   }
 
-  static Future<String?> getCachedFilePathByName(
-      {required String? fileName}) async {
+  static Future<String?> getCachedFilePathByName({
+    required String? fileName,
+  }) async {
     if (fileName == null || fileName.isEmpty) {
       return null;
     }
     final allPaths = await listAllCachedFiles();
 
     try {
-      var path =
-          allPaths.firstWhereOrNull((path) => p.basename(path) == fileName);
+      var path = allPaths.firstWhereOrNull(
+        (path) => p.basename(path) == fileName,
+      );
       if (path == null) {
         return null;
       }
@@ -235,9 +239,7 @@ class SampleUtils {
 
   static Future<List<String>> listAllCachedFiles() async {
     try {
-      final folderPath = await getDirectoryPath(
-        folderName: "SampleBooks",
-      );
+      final folderPath = await getDirectoryPath(folderName: "SampleBooks");
       final folder = io.Directory(folderPath);
 
       if (!await folder.exists()) {

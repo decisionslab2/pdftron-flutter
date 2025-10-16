@@ -12,9 +12,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Viewer(),
-    );
+    return MaterialApp(home: Viewer());
   }
 }
 
@@ -44,27 +42,27 @@ class _ViewerState extends State<Viewer> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: SampleUtils().getSampleFile(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data != null) {
-            return _buildDocumentView(snapshot.data as String);
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        });
+      future: SampleUtils().getSampleFile(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData && snapshot.data != null) {
+          return _buildDocumentView(snapshot.data as String);
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    );
   }
 
   Scaffold _buildDocumentView(String pdfFilePath) {
     _document = pdfFilePath;
     return Scaffold(
-        appBar: AppBar(
-          title: Text("PDFTron Flutter Example"),
-        ),
-        body: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: DocumentView(onCreated: _onDocumentViewCreated),
-        ));
+      appBar: AppBar(title: Text("PDFTron Flutter Example")),
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: DocumentView(onCreated: _onDocumentViewCreated),
+      ),
+    );
   }
 
   void _onDocumentViewCreated(DocumentViewController controller) async {
@@ -103,8 +101,7 @@ class _ViewerState extends State<Viewer> {
 
       await controller.openDocument(
         //passing empty path to test startDocumentErrorListener trigger
-        //  _document,
-        "",
+        _document,
         config: null,
       );
     } catch (e) {
