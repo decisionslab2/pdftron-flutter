@@ -1256,6 +1256,25 @@ static BOOL PT_addMethod(Class cls, SEL selector, void (^block)(id))
         [self.navigationItem setLeftBarButtonItems:regularItems
                                             forSizeClass:UIUserInterfaceSizeClassRegular
                                                 animated:NO];
+         
+    // BEGIN: Remove any extra left bar button items (e.g., bookmark) so only Done remains. -Arshad
+        NSArray<UIBarButtonItem *> *currentCompactLeft = [self.navigationItem leftBarButtonItemsForSizeClass:UIUserInterfaceSizeClassCompact] ?: @[];
+        NSMutableArray<UIBarButtonItem *> *filteredCompactLeft = [NSMutableArray array];
+        for (UIBarButtonItem *item in currentCompactLeft) {
+            if (item == navButton) { [filteredCompactLeft addObject:item]; }
+        }
+        [self.navigationItem setLeftBarButtonItems:[filteredCompactLeft copy]
+                                        forSizeClass:UIUserInterfaceSizeClassCompact
+                                            animated:NO];
+        NSArray<UIBarButtonItem *> *currentRegularLeft = [self.navigationItem leftBarButtonItemsForSizeClass:UIUserInterfaceSizeClassRegular] ?: @[];
+        NSMutableArray<UIBarButtonItem *> *filteredRegularLeft = [NSMutableArray array];
+        for (UIBarButtonItem *item in currentRegularLeft) {
+            if (item == navButton) { [filteredRegularLeft addObject:item]; }
+        }
+        [self.navigationItem setLeftBarButtonItems:[filteredRegularLeft copy]
+                                        forSizeClass:UIUserInterfaceSizeClassRegular
+                                            animated:NO];
+        // END                                       
     }
 }
 
