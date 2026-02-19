@@ -1,20 +1,7 @@
-## About PDFTron Flutter
-PDFTron's Flutter PDF library brings smooth, flexible, and stand-alone document viewing and editing solutions using Flutter codebases for iOS and Android applications.
+## About PDFTron Flutter Wrapper
 
-- Direct MS Office document viewing and conversion
-- Fully customizable open source UI to improve app engagement
-- Document reflow to increase readability and accessibility on mobile
-- File streaming to view remote and complex documents faster
-- Night mode to improve viewing in low-light environments
-- And much more...
-
-More information can be found at https://docs.apryse.com/documentation/guides/flutter/
-
-**Android**|**iOS**
-:--:|:--:
-<img src="https://pdftron.s3.amazonaws.com/custom/websitefiles/flutter/flutter-pdftron-demo-android.gif" alt="A gif showcasing the UI and some features on Android"/>|<img src="https://pdftron.s3.amazonaws.com/custom/websitefiles/flutter/flutter-pdftron-demo-ios.gif" alt="A gif showcasing the UI and some features on iOS"/>
-
-## Contents
+> [!IMPORTANT]
+> This repository serves as a wrapper around the native SDKs. It exposes only a limited set of APIs intended for basic viewing, annotating and removing components from the out‑of‑box UI. Any advanced customization or access to lower‑level functionality should be performed directly through the native SDKs rather than this wrapper.
 
 - [API](https://pub.dev/documentation/pdftron_flutter/latest/pdftron/pdftron-library.html)
 - [Prerequisites](#prerequisites)
@@ -26,6 +13,12 @@ More information can be found at https://docs.apryse.com/documentation/guides/fl
 - [Changelog](#changelog)
 - [Contributing](#contributing)
 - [License](#license)
+
+## Preview
+
+**Android**|**iOS**
+:--:|:--:
+<img src="https://pdftron.s3.amazonaws.com/custom/websitefiles/flutter/flutter-pdftron-demo-android.gif" alt="A gif showcasing the UI and some features on Android"/>|<img src="https://pdftron.s3.amazonaws.com/custom/websitefiles/flutter/flutter-pdftron-demo-ios.gif" alt="A gif showcasing the UI and some features on iOS"/>
 
 ## Prerequisites
 - No license key is required for trial. However, a valid commercial license key is required after trial.
@@ -137,11 +130,11 @@ The following instructions are only applicable to Android development; click her
 The following instructions are only applicable to iOS development; click here for the [Android counterpart](#android).
 
 > [!IMPORTANT]
-> As of March 2025, use of the `PDFTron` and `PDFTronTools` podspecs distributed specifically for the PDFTron Flutter wrapper (`https://pdftron.com/downloads/ios/flutter/pdftron/latest.podspec` and `https://pdftron.com/downloads/ios/flutter/pdftron-tools/latest.podspec`, respectively) is deprecated.
+> As of March 2025, use of the `PDFTron` and `PDFTronTools` podspecs distributed specifically for the PDFTron Flutter wrapper (`https://pdftron.com/downloads/ios/flutter/pdftron/latest.podspec` and `https://pdftron.com/downloads/ios/flutter/pdftron-tools/latest.podspec`, respectively) is deprecated and no longer maintained.
 > 
-> **All new and existing users are recommended to use the standard [Apryse iOS SDK CocoaPods](https://docs.apryse.com/ios/guides/get-started/integration?tab=cocoapods) instead.**
+> Please update to the latest podspecs provided for the wrapper as soon as possible (`https://www.pdftron.com/downloads/ios/cocoapods/xcframeworks/pdftron/latest.podspec`) and (`https://www.pdftron.com/downloads/ios/cocoapods/xcframeworks/pdftron-tools/latest.podspec`)
 >
-> Please update your `Podfile` accordingly.
+> See more information here: [Apryse iOS SDK CocoaPods](https://docs.apryse.com/ios/guides/get-started/integration?tab=cocoapods)
 
 4. Open `myapp/ios/Podfile` file and add:
 	```diff

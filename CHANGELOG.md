@@ -1,3 +1,15 @@
+# 1.0.1-54 - February 17, 2026
+- Update Android to v11.11.0
+
+# 1.0.1-52 - January 7, 2026
+- Update Android to v11.10.0
+
+# 1.0.1-51 - November 27, 2025
+- Update Android to v11.9.0
+
+# 1.0.1-50 - October 16, 2025
+- Update the example project to use the official Apryse iOS podspec links
+
 # 1.0.1-49 - October 15, 2025
 - Performance update for the `importAnnotations()` API on iOS
 
