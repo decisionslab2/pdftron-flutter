@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdftron_flutter/pdftron_flutter.dart';
 import 'package:collection/collection.dart';
@@ -8,9 +9,21 @@ import 'dart:io' as io;
 import 'package:path/path.dart' as p;
 
 class SampleUtils {
-  static Config annotateConfig(String userID, String userDisplayName) {
+  static Config annotateConfig(
+    String userID,
+    String userDisplayName,
+    bool showViewFirst,
+  ) {
     Config config = Config();
 
+    //To custom Tool in Annotate
+    // var decisionsCustomTool = CustomToolbarItem(
+    //   '001',
+    //   'Refresh annotations',
+    //   'small_clear.png',
+    // );
+
+    //Creating customToolBar liST of tools.
     List<Object>? tools = [
       Buttons.stickyToolButton,
       Buttons.freeHandToolButton,
@@ -20,6 +33,10 @@ class SampleUtils {
       Buttons.undo,
     ];
 
+    // if (io.Platform.isIOS) {
+    //   tools.add(decisionsCustomTool);
+    // }
+
     CustomToolbar customToolBar = CustomToolbar(
       '01',
       "Annotate",
@@ -27,13 +44,16 @@ class SampleUtils {
       ToolbarIcons.annotate,
     );
 
-    config.annotationToolbars = [DefaultToolbars.view, customToolBar];
+    config.annotationToolbars = showViewFirst
+        ? [customToolBar, DefaultToolbars.view]
+        : [DefaultToolbars.view, customToolBar];
+
     config.longPressMenuItems = ["delete"];
+    config.userBookmarksListEditingEnabled = false;
     config.thumbnailViewEditingEnabled = true;
     config.autoResizeFreeTextEnabled = true;
     config.outlineListEditingEnabled = false;
     config.selectAnnotationAfterCreation = false;
-    config.fitMode = FitModes.fitPage;
     config.downloadDialogEnabled = false;
     config.topAppNavBarRightBar = [Buttons.searchButton];
     config.showDocumentSavedToast = false;
@@ -78,7 +98,7 @@ class SampleUtils {
       AnnotationMenuItems.share,
       AnnotationMenuItems.delete,
     ];
-    config.longPressMenuEnabled = true;
+    config.longPressMenuEnabled = false;
     config.annotationToolbarAlignment = ToolbarAlignment.End;
     config.autoSaveEnabled = true;
     config.disabledElements = disabledElements;
@@ -92,30 +112,37 @@ class SampleUtils {
     config.pageChangeOnTap = false;
     config.hideToolbarsOnTap = false;
     config.imageInReflowModeEnabled = false;
-    config.continuousAnnotationEditing = true;
+    config.continuousAnnotationEditing = false;
     return config;
   }
 
-  Future<String?> getSampleFile() async {
+  static Future<String?> getSampleFile() async {
     try {
-      String newFileName = "newSample.pdf";
-      String? localPath = await getCachedFilePathByName(fileName: newFileName);
+      const String assetFileName = "sample.pdf";
+      final String tempFileName = "sample.pdf";
 
+      // Check if file already exists in cache
+      String? localPath = await getCachedFilePathByName(fileName: tempFileName);
       if (localPath != null) {
-        print('Cached file found: $newFileName');
+        print('Cached asset file found: $tempFileName');
         return localPath;
       }
-      print('Cached file not found:newSample.pdf');
-      var download = await downloadFileToDevice(
-        url:
-            "https://drive.google.com/uc?export=download&id=1Tq7etabrdQTd9wYMeUuVXzfzFBXy2e5d",
-        //'https://drive.google.com/uc?export=download&id=1R6K33q8CrUuzF1CDdXPD25-Gxr9v9LgO',
-        foldername: "SampleBooks",
-        filename: newFileName,
-      );
-      return download.path;
+
+      print('Loading PDF from assets...');
+      // Load the PDF from assets
+      final ByteData data = await rootBundle.load('assets/$assetFileName');
+      final Uint8List bytes = data.buffer.asUint8List();
+
+      // Save to app's document directory
+      final io.Directory tempDir = await getApplicationDocumentsDirectory();
+      final String filePath = p.join(tempDir.path, tempFileName);
+      final io.File file = io.File(filePath);
+      await file.writeAsBytes(bytes);
+
+      print('Asset PDF saved to: $filePath');
+      return filePath;
     } catch (e) {
-      print('Error finding cached file: $e');
+      print('Error loading asset file: $e');
       return null;
     }
   }

@@ -23,7 +23,7 @@ class Viewer extends StatefulWidget {
 
 class _ViewerState extends State<Viewer> {
   String _document =
-      "https://pdftron.s3.amazonaws.com/downloads/pl/PDFTRON_mobile_about.pdf";
+      "https://drive.google.com/file/d/1eMsxwQFy8XFEjD1e4A0tQorJVssubssO/edit";
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _ViewerState extends State<Viewer> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: SampleUtils().getSampleFile(),
+      future: SampleUtils.getSampleFile(),
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data != null) {
           return _buildDocumentView(snapshot.data as String);
@@ -100,9 +100,8 @@ class _ViewerState extends State<Viewer> {
       });
 
       await controller.openDocument(
-        //passing empty path to test startDocumentErrorListener trigger
         _document,
-        config: null,
+        config: SampleUtils.annotateConfig("user123", "John Doe", true),
       );
     } catch (e) {
       print("Error in _onDocumentViewCreated: $e");
