@@ -8,7 +8,6 @@ import com.pdftron.pdf.PDFDoc;
 import com.pdftron.pdf.PDFViewCtrl;
 import com.pdftron.pdf.controls.PdfViewCtrlTabFragment2;
 import com.pdftron.pdf.controls.PdfViewCtrlTabHostFragment2;
-import com.pdftron.pdf.tools.AnnotManager;
 import com.pdftron.pdf.tools.ToolManager;
 
 import java.io.File;
@@ -82,12 +81,13 @@ public interface ViewerComponent {
 
     EventChannel.EventSink getPageMovedEventEmitter();
 
-    EventChannel.EventSink getAnnotationToolbarItemPressedEventEmitter();
-    
     EventChannel.EventSink getScrollChangedEventEmitter();
 
-    // Hygen Generated Event Listeners
+    EventChannel.EventSink getAnnotationToolbarItemPressedEventEmitter();
+
     EventChannel.EventSink getAppBarButtonPressedEventEmitter();
+
+    EventChannel.EventSink getShareDecisionsEventEmitter();  //Decisions Event sink
 
     MethodChannel.Result getFlutterLoadResult();
 

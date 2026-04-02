@@ -26,7 +26,6 @@ import com.pdftron.pdf.utils.Utils;
 import com.pdftron.pdftronflutter.helpers.PluginUtils;
 import com.pdftron.pdftronflutter.helpers.ViewerComponent;
 import com.pdftron.pdftronflutter.helpers.ViewerImpl;
-import com.pdftron.pdftronflutter.nativeviews.FlutterPdfViewCtrlTabFragment;
 
 import org.json.JSONObject;
 
@@ -41,6 +40,7 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import static com.pdftron.pdftronflutter.helpers.PluginUtils.handleAnnotationCustomToolbarItemPressed;
 import static com.pdftron.pdftronflutter.helpers.PluginUtils.handleAppBarButtonPressed;
 import static com.pdftron.pdftronflutter.helpers.PluginUtils.handleLeadingNavButtonPressed;
+import com.pdftron.pdftronflutter.nativeviews.FlutterPdfViewCtrlTabFragment;
 
 public class FlutterDocumentActivity extends DocumentActivity implements ViewerComponent {
 
@@ -241,6 +241,7 @@ public class FlutterDocumentActivity extends DocumentActivity implements ViewerC
         sLeadingNavButtonPressedEventEmitter.set(emitter);
     }
 
+
     public static void setPageChangedEventEmitter(EventSink emitter) {
         sPageChangedEventEmitter.set(emitter);
     }
@@ -326,6 +327,10 @@ public class FlutterDocumentActivity extends DocumentActivity implements ViewerC
     }
 
     public EventSink getLeadingNavButtonPressedEventEmitter() {
+        return sLeadingNavButtonPressedEventEmitter.get();
+    }
+
+    public EventSink getShareDecisionsEventEmitter() {
         return sLeadingNavButtonPressedEventEmitter.get();
     }
 

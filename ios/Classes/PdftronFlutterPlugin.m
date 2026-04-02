@@ -22,9 +22,8 @@
 @property (nonatomic, strong) FlutterEventSink pageMovedEventSink;
 @property (nonatomic, strong) FlutterEventSink scrollChangedEventSink;
 @property (nonatomic, strong) FlutterEventSink annotationToolbarItemPressedEventSink;
-// Hygen Generated Event Listeners (1)
 @property (nonatomic, strong) FlutterEventSink appBarButtonPressedEventSink;
-
+@property (nonatomic, strong) FlutterEventSink shareDecisionsEventSink; //Decisions Event sink
 @property (nonatomic, assign, getter=isWidgetView) BOOL widgetView;
 @property (nonatomic, assign, getter=isMultiTabSet) BOOL multiTabSet;
 
@@ -156,6 +155,8 @@
     FlutterEventChannel* pageMovedEventChannel = [FlutterEventChannel eventChannelWithName:PTPageMovedEventKey binaryMessenger:messenger];
 
     FlutterEventChannel* scrollChangedEventChannel = [FlutterEventChannel eventChannelWithName:PTScrollChangedEventKey binaryMessenger:messenger];
+    
+    FlutterEventChannel* shareDecisionsEventChannel = [FlutterEventChannel eventChannelWithName:PTShareDecisionsEventKey binaryMessenger:messenger];
 
     [xfdfEventChannel setStreamHandler:self];
     
@@ -186,6 +187,8 @@
     [pageMovedEventChannel setStreamHandler:self];
 
     [scrollChangedEventChannel setStreamHandler:self];
+    
+    [shareDecisionsEventChannel setStreamHandler:self];
 
     // Hygen Generated Event Listeners (2)
     FlutterEventChannel* annotationToolbarItemPressedEventChannel = [FlutterEventChannel eventChannelWithName:PTAnnotationToolbarItemPressedEventKey binaryMessenger:messenger];
@@ -387,6 +390,12 @@
                     if (!error && annotationMenuItems) {
                         [documentController setAnnotationMenuItems:annotationMenuItems];
                     }
+                    
+//                    if (@available(iOS 13.0, *)) {
+//                        PTSelectableBarButtonItem* selectableItem = [[PTSelectableBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"square.and.pencil"] style:UIBarButtonItemStylePlain target:self action:@selector(customToolAction:)];
+//                        selectableItem.title = @"Custom Tool";
+//                        documentController.toolGroupManager.annotateItemGroup.barButtonItems = [documentController.toolGroupManager.annotateItemGroup.barButtonItems arrayByAddingObject:selectableItem];
+//                    }
                 }
                 else if ([key isEqualToString:PTOverrideAnnotationMenuBehavior]) {
                     
@@ -852,6 +861,12 @@
     [documentController applyViewerSettings];
 }
 
++(void)customToolAction:(PTSelectableBarButtonItem*)button
+{
+    button.selected = !button.selected;
+    
+}
+
 + (id)getConfigValue:(NSDictionary*)configDict configKey:(NSString*)configKey class:(Class)class error:(NSError**)error
 {
     id configResult = configDict[configKey];
@@ -874,6 +889,15 @@
     }
     
     [self documentController:[self getDocumentController] leadingNavButtonClicked:nil];
+}
+
+- (void)decisionsButtonPressed:(UIBarButtonItem *)barButtonItem
+{
+    if (!self.isWidgetView) {
+        [self.tabbedDocumentViewController.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
+    
+    [self documentController:[self getDocumentController] decisionsButtonClicked:@"DecisionsButtonClicked"];
 }
 
 + (void)disableTools:(NSArray<id> *)toolsToDisable documentController:(PTDocumentController *)documentController
@@ -1247,6 +1271,9 @@
         case annotationsSelectedId:
             self.annotationsSelectedEventSink = events;
             break;
+        case shareDecisionsId:
+            self.shareDecisionsEventSink = events;
+            break;
         case formFieldValueChangedId:
             self.formFieldValueChangedEventSink = events;
             break;
@@ -1309,6 +1336,9 @@
             break;
         case annotationsSelectedId:
             self.annotationsSelectedEventSink = nil;
+            break;
+        case shareDecisionsId:
+            self.shareDecisionsEventSink = nil;
             break;
         case formFieldValueChangedId:
             self.formFieldValueChangedEventSink = nil;
@@ -1418,6 +1448,16 @@
     }
 }
 
+
+-(void)documentController:(PTDocumentController *)documentController shareDecisions:(NSString*)annotationMenuPressedString
+{
+    if (self.shareDecisionsEventSink != nil)
+    {
+        self.shareDecisionsEventSink(annotationMenuPressedString);
+    }
+}
+  
+
 -(void)documentController:(PTDocumentController*)documentController formFieldValueChanged:(NSString*)fieldsString
 {
     if(self.formFieldValueChangedEventSink != nil)
@@ -1455,6 +1495,14 @@
     if (self.leadingNavButtonPressedEventSink != nil)
     {
         self.leadingNavButtonPressedEventSink(nil);
+    }
+}
+
+-(void)documentController:(PTDocumentController *)docVC decisionsButtonClicked:(nullable NSString *)nav
+{
+    if (self.shareDecisionsEventSink != nil)
+    {
+        self.shareDecisionsEventSink(nav);
     }
 }
 

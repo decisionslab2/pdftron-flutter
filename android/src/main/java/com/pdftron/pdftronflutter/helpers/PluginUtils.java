@@ -275,6 +275,7 @@ public class PluginUtils {
     public static final String EVENT_LONG_PRESS_MENU_PRESSED = "long_press_menu_pressed_event";
     public static final String EVENT_ANNOTATION_MENU_PRESSED = "annotation_menu_pressed_event";
     public static final String EVENT_LEADING_NAV_BUTTON_PRESSED = "leading_nav_button_pressed_event";
+    public static final String EVENT_SHARE_DECISIONS_EVENT = "share_decisions_event";
     public static final String EVENT_PAGE_CHANGED = "page_changed_event";
     public static final String EVENT_ZOOM_CHANGED = "zoom_changed_event";
     public static final String EVENT_PAGE_MOVED = "page_moved_event";
@@ -487,6 +488,7 @@ public class PluginUtils {
     public static final String MENU_ID_STRING_COPY = "copy";
     public static final String MENU_ID_STRING_DELETE = "delete";
     public static final String MENU_ID_STRING_FLATTEN = "flatten";
+    public static final String MENU_ID_STRING_SHAREDECISIONS = "ShareDecisions";
     public static final String MENU_ID_STRING_TEXT = "text";
     public static final String MENU_ID_STRING_EDIT_INK = "editInk";
     public static final String MENU_ID_STRING_SEARCH = "search";
@@ -847,9 +849,9 @@ public class PluginUtils {
     }
 
     public static ConfigInfo handleOpenDocument(@NonNull ViewerConfig.Builder builder,
-            @NonNull ToolManagerBuilder toolManagerBuilder,
-            @NonNull PDFViewCtrlConfig pdfViewCtrlConfig, @NonNull String document, @NonNull Context context,
-            String configStr) {
+                                                @NonNull ToolManagerBuilder toolManagerBuilder,
+                                                @NonNull PDFViewCtrlConfig pdfViewCtrlConfig, @NonNull String document, @NonNull Context context,
+                                                String configStr) {
 
         builder
                 .maximumTabCount(Integer.MAX_VALUE)
@@ -1816,7 +1818,9 @@ public class PluginUtils {
             menuStr = MENU_ID_STRING_DELETE;
         } else if (id == R.id.qm_flatten) {
             menuStr = MENU_ID_STRING_FLATTEN;
-        } else if (id == R.id.qm_text) {
+        } else if (id == R.id.qm_sharedecisions) {
+            menuStr = MENU_ID_STRING_SHAREDECISIONS;
+        }else if (id == R.id.qm_text) {
             menuStr = MENU_ID_STRING_TEXT;
         } else if (id == R.id.qm_edit) {
             menuStr = MENU_ID_STRING_EDIT_INK;
@@ -3322,7 +3326,7 @@ public class PluginUtils {
     }
 
     private static void setFlagsForAnnotations(String annotationsWithFlags, MethodChannel.Result result,
-            ViewerComponent component) throws PDFNetException, JSONException {
+                                               ViewerComponent component) throws PDFNetException, JSONException {
         PDFViewCtrl pdfViewCtrl = component.getPdfViewCtrl();
         PDFDoc pdfDoc = component.getPdfDoc();
         ToolManager toolManager = component.getToolManager();
@@ -4362,6 +4366,7 @@ public class PluginUtils {
             leadingNavButtonPressedEventSink.success(null);
         }
     }
+
 
     public static void handleAnnotationCustomToolbarItemPressed(ViewerComponent component, MenuItem item) {
         if (component == null) {
