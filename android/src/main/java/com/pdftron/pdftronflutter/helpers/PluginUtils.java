@@ -1818,7 +1818,7 @@ public class PluginUtils {
             menuStr = MENU_ID_STRING_DELETE;
         } else if (id == R.id.qm_flatten) {
             menuStr = MENU_ID_STRING_FLATTEN;
-        } else if (id == R.id.qm_sharedecisions) {
+        } else if (id == com.pdftron.pdftronflutter.R.id.qm_sharedecisions) {
             menuStr = MENU_ID_STRING_SHAREDECISIONS;
         }else if (id == R.id.qm_text) {
             menuStr = MENU_ID_STRING_TEXT;

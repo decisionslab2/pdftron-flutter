@@ -424,7 +424,7 @@ public class ViewerImpl {
             //Adding share quick menu for Decisions share annotation feature
             QuickMenuItem item = new QuickMenuItem(quickMenu.getContext(), R.id.qm_sharedecisions, QuickMenuItem.FIRST_ROW_MENU);
             item.setTitle(R.string.qm_sharedecisions);
-            item.setIcon(R.drawable.ic_share_black_24dp);
+            item.setIcon(com.pdftron.pdf.tools.R.drawable.ic_share_black_24dp);
             item.setOrder(0);
             ArrayList<QuickMenuItem> items = new ArrayList<>(1);
             items.add(item);
