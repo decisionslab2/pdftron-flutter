@@ -568,13 +568,8 @@ static BOOL PT_addMethod(Class cls, SEL selector, void (^block)(id))
         if (!self.longPressMenuItems) {
             [permittedItems addObject:menuItem];
         }
-        else {
-            if (!menuItemId) {
-                // If it is not one of copy, search, share and read, then it should be added
-                [permittedItems addObject:menuItem];
-            } else if ([self.longPressMenuItems containsObject:menuItemId]) {
-                [permittedItems addObject:menuItem];
-            }
+        else if (menuItemId && [self.longPressMenuItems containsObject:menuItemId]) {
+            [permittedItems addObject:menuItem];
         }
 
         // Override action of of overridden annotation menu items.
