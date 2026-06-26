@@ -286,6 +286,12 @@ static BOOL PT_addMethod(Class cls, SEL selector, void (^block)(id))
     if (tool.backToPanToolAfterUse != backToPan) {
         tool.backToPanToolAfterUse = backToPan;
     }
+
+    // Disable multi-stroke grouping so each stroke becomes its own annotation
+    // (covers the pen and, via subclass, the freehand highlighter).
+    if ([tool isKindOfClass:[PTFreeHandCreate class]]) {
+        ((PTFreeHandCreate *)tool).multistrokeMode = NO;
+    }
 }
 
 -(void)toolManager:(PTToolManager*)toolManager willRemoveAnnotation:(nonnull PTAnnot *)annotation onPageNumber:(int)pageNumber
