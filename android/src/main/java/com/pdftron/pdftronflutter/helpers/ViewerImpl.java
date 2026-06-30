@@ -19,7 +19,6 @@ import com.pdftron.pdf.PDFViewCtrl;
 import com.pdftron.pdf.annots.Widget;
 import com.pdftron.pdf.controls.PdfViewCtrlTabFragment2;
 import com.pdftron.pdf.model.UserBookmarkItem;
-import com.pdftron.pdf.tools.FreehandCreate;
 import com.pdftron.pdf.tools.Pan;
 import com.pdftron.pdf.tools.QuickMenu;
 import com.pdftron.pdf.tools.QuickMenuItem;
@@ -71,7 +70,6 @@ public class ViewerImpl {
         toolManager.addAnnotationModificationListener(mAnnotationModificationListener);
         toolManager.addAnnotationsSelectionListener(mAnnotationsSelectionListener);
         toolManager.addPdfDocModificationListener(mPdfDocModificationListener);
-        toolManager.addToolChangedListener(mToolChangedListener);
     }
 
     public void addListeners(@NonNull PdfViewCtrlTabFragment2 pdfViewCtrlTabFragment) {
@@ -87,7 +85,6 @@ public class ViewerImpl {
         toolManager.removeAnnotationModificationListener(mAnnotationModificationListener);
         toolManager.removeAnnotationsSelectionListener(mAnnotationsSelectionListener);
         toolManager.removePdfDocModificationListener(mPdfDocModificationListener);
-        toolManager.removeToolChangedListener(mToolChangedListener);
     }
 
     public void removeListeners(@NonNull PdfViewCtrlTabFragment2 pdfViewCtrlTabFragment) {
@@ -102,16 +99,6 @@ public class ViewerImpl {
     public void setActionInterceptCallback() {
         ActionUtils.getInstance().setActionInterceptCallback(mActionInterceptCallback);
     }
-
-    // Disable multi-stroke grouping so each pen stroke becomes its own annotation.
-    private ToolManager.ToolChangedListener mToolChangedListener = new ToolManager.ToolChangedListener() {
-        @Override
-        public void toolChanged(ToolManager.Tool newTool, ToolManager.Tool oldTool) {
-            if (newTool instanceof FreehandCreate) {
-                ((FreehandCreate) newTool).setMultiStrokeMode(false);
-            }
-        }
-    };
 
     private ToolManager.AnnotationModificationListener mAnnotationModificationListener = new ToolManager.AnnotationModificationListener() {
         @Override
