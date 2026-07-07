@@ -211,7 +211,6 @@ static NSString * const PTOpenDocumentKey = @"openDocument";
 static NSString * const PTImportAnnotationsKey = @"importAnnotations";
 static NSString * const PTExportAnnotationsKey = @"exportAnnotations";
 static NSString * const PTFlattenAnnotationsKey = @"flattenAnnotations";
-static NSString * const PTShareDecisionsAnnotationsKey = @"shareDecisionsAnnotations";
 static NSString * const PTDeleteAnnotationsKey = @"deleteAnnotations";
 static NSString * const PTSelectAnnotationKey = @"selectAnnotation";
 static NSString * const PTSetFlagsForAnnotationsKey = @"setFlagsForAnnotations";
@@ -326,7 +325,6 @@ static NSString * const PTDocumentLoadedEventKey = @"document_loaded_event";
 static NSString * const PTDocumentErrorEventKey = @"document_error_event";
 static NSString * const PTAnnotationChangedEventKey = @"annotation_changed_event";
 static NSString * const PTAnnotationsSelectedEventKey = @"annotations_selected_event";
-static NSString * const PTShareDecisionsEventKey = @"share_decisions_event";
 static NSString * const PTFormFieldValueChangedEventKey = @"form_field_value_changed_event";
 static NSString * const PTBehaviorActivatedEventKey = @"behavior_activated_event";
 static NSString * const PTLongPressMenuPressedEventKey = @"long_press_menu_pressed_event";
@@ -340,6 +338,7 @@ static NSString *const PTScrollChangedEventKey = @"scroll_changed_event";
 // Hygen Generated Event Listeners (1)
 static NSString * const PTAnnotationToolbarItemPressedEventKey = @"annotation_toolbar_item_pressed_event";
 static NSString * const PTAppBarButtonPressedEventKey = @"app_bar_button_pressed_event";
+static NSString * const PTToolChangedEventKey = @"tool_changed_event";
 
 // fit mode
 static NSString * const PTFitPageKey = @"FitPage";
@@ -513,10 +512,11 @@ typedef enum
     pageChangedId,
     zoomChangedId,
     pageMovedId,
+    // Hygen Generated Event Listeners (2)
     scrollChangedId,
     annotationToolbarItemPressedId,
     appBarButtonPressedId,
-    shareDecisionsId,
+    toolChangedId,
 } EventSinkId;
 
 @interface PdftronFlutterPlugin : NSObject<FlutterPlugin, FlutterStreamHandler, FlutterPlatformView>
@@ -532,13 +532,12 @@ typedef enum
 - (void)documentController:(PTDocumentController *)documentController documentError:(nullable NSError *)error;
 - (void)documentController:(PTDocumentController *)documentController annotationsChangedWithActionString:(NSString *)actionString;
 - (void)documentController:(PTDocumentController *)documentController annotationsSelected:(NSString *)annotations;
-- (void)documentController:(PTDocumentController *)documentController shareDecisions:(NSString *)xfdfCommand;
 - (void)documentController:(PTDocumentController *)documentController formFieldValueChanged:(NSString *)fieldString;
 - (void)documentController:(PTDocumentController *)docVC behaviorActivated:(NSString *)behaviorString;
 - (void)documentController:(PTDocumentController *)docVC leadingNavButtonClicked:(nullable NSString *)nav;
-- (void)documentController:(PTDocumentController *)docVC decisionsButtonClicked:(nullable NSString *)nav;
 - (void)documentController:(PTDocumentController *)docVC longPressMenuPressed:(NSString *)longPressMenuPressedString;
 - (void)documentController:(PTDocumentController *)docVC annotationMenuPressed:(NSString *)annotationMenuPressedString;
+- (void)documentController:(PTDocumentController *)docVC leadingNavButtonClicked:(nullable NSString *)nav;
 - (void)documentController:(PTDocumentController *)docVC pageChanged:(NSString *)pageNumbersString;
 - (void)documentController:(PTDocumentController *)docVC zoomChanged:(NSNumber *)zoom;
 - (void)documentController:(PTDocumentController *)docVC pageMoved:(NSString *)pageNumbersString;
@@ -546,10 +545,9 @@ typedef enum
 // Hygen Generated Event Listeners (3)
 - (void)documentController:(PTDocumentController *)docVC annotationToolbarItemPressed:(NSString *)annotationToolbarItemPressedId;
 - (void)documentController:(PTDocumentController *)docVC appBarButtonPressed:(NSString *)appBarButtonPressedString;
+- (void)documentController:(PTDocumentController *)docVC toolChanged:(NSString *)toolChangedString;
 
 - (void)topLeftButtonPressed:(UIBarButtonItem *)barButtonItem;
-
-- (void)decisionsButtonPressed:(UIBarButtonItem *)barButtonItem;
 
 - (UIView *)view;
 

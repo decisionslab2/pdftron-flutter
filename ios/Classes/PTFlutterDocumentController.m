@@ -286,6 +286,20 @@ static BOOL PT_addMethod(Class cls, SEL selector, void (^block)(id))
     if (tool.backToPanToolAfterUse != backToPan) {
         tool.backToPanToolAfterUse = backToPan;
     }
+
+    NSString *newToolName = @"";
+    if (tool != nil) {
+        Class toolClass = [tool class];
+        newToolName = NSStringFromClass(toolClass);
+    }
+    NSDictionary *resultDict = @{
+        @"newTool": newToolName ?: @"",
+    };
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:resultDict options:0 error:nil];
+    if (jsonData) {
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        [self.plugin documentController:self toolChanged:jsonString];
+    }
 }
 
 -(void)toolManager:(PTToolManager*)toolManager willRemoveAnnotation:(nonnull PTAnnot *)annotation onPageNumber:(int)pageNumber

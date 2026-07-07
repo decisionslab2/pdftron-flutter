@@ -94,6 +94,7 @@ public class DocumentView extends com.pdftron.pdf.controls.DocumentView2 impleme
 
     // Hygen Generated Event Listeners (1)
     private EventChannel.EventSink sAppBarButtonPressedEventEmitter;
+    private EventChannel.EventSink sToolChangedEventEmitter;
 
     private MethodChannel.Result sFlutterLoadResult;
 
@@ -423,6 +424,10 @@ public class DocumentView extends com.pdftron.pdf.controls.DocumentView2 impleme
         sAppBarButtonPressedEventEmitter = emitter;
     }
 
+    public void setToolChangedEventEmitter(EventChannel.EventSink emitter) {
+        sToolChangedEventEmitter = emitter;
+    }
+
     public void setFlutterLoadResult(MethodChannel.Result result) {
         sFlutterLoadResult = result;
     }
@@ -515,6 +520,11 @@ public class DocumentView extends com.pdftron.pdf.controls.DocumentView2 impleme
     @Override
     public EventChannel.EventSink getAppBarButtonPressedEventEmitter() {
         return sAppBarButtonPressedEventEmitter;
+    }
+
+    @Override
+    public EventChannel.EventSink getToolChangedEventEmitter() {
+        return sToolChangedEventEmitter;
     }
 
     @Override
