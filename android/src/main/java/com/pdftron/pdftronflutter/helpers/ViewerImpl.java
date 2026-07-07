@@ -70,6 +70,7 @@ public class ViewerImpl {
         toolManager.addAnnotationModificationListener(mAnnotationModificationListener);
         toolManager.addAnnotationsSelectionListener(mAnnotationsSelectionListener);
         toolManager.addPdfDocModificationListener(mPdfDocModificationListener);
+        toolManager.addToolChangedListener(mToolChangedListener);
     }
 
     public void addListeners(@NonNull PdfViewCtrlTabFragment2 pdfViewCtrlTabFragment) {
@@ -85,6 +86,7 @@ public class ViewerImpl {
         toolManager.removeAnnotationModificationListener(mAnnotationModificationListener);
         toolManager.removeAnnotationsSelectionListener(mAnnotationsSelectionListener);
         toolManager.removePdfDocModificationListener(mPdfDocModificationListener);
+        toolManager.removeToolChangedListener(mToolChangedListener);
     }
 
     public void removeListeners(@NonNull PdfViewCtrlTabFragment2 pdfViewCtrlTabFragment) {
@@ -466,6 +468,37 @@ public class ViewerImpl {
                     e.printStackTrace();
                 }
 
+                eventSink.success(resultObject.toString());
+            }
+        }
+    };
+
+    private ToolManager.ToolChangedListener mToolChangedListener = new ToolManager.ToolChangedListener() {
+        @Override
+        public void toolChanged(ToolManager.Tool newTool, ToolManager.Tool oldTool) {
+            EventChannel.EventSink eventSink = mViewerComponent.getToolChangedEventEmitter();
+            if (eventSink != null) {
+                String newToolMode = "";
+                String oldToolMode = "";
+                if (newTool != null) {
+                    ToolManager.ToolMode mode = ToolManager.getDefaultToolMode(newTool.getToolMode());
+                    if (mode != null) {
+                        newToolMode = mode.name();
+                    }
+                }
+                if (oldTool != null) {
+                    ToolManager.ToolMode mode = ToolManager.getDefaultToolMode(oldTool.getToolMode());
+                    if (mode != null) {
+                        oldToolMode = mode.name();
+                    }
+                }
+                JSONObject resultObject = new JSONObject();
+                try {
+                    resultObject.put("newTool", newToolMode);
+                    resultObject.put("oldTool", oldToolMode);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 eventSink.success(resultObject.toString());
             }
         }
