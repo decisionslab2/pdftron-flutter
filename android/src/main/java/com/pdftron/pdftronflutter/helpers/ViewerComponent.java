@@ -91,6 +91,8 @@ public interface ViewerComponent {
 
     EventChannel.EventSink getToolChangedEventEmitter();
 
+    EventChannel.EventSink getShareDecisionsEventEmitter();
+
     MethodChannel.Result getFlutterLoadResult();
 
     HashMap<Annot, Integer> getSelectedAnnots();

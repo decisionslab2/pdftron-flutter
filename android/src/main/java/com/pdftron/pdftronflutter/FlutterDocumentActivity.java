@@ -89,6 +89,7 @@ public class FlutterDocumentActivity extends DocumentActivity implements ViewerC
 
     // Hygen Generated Event Listeners (1)
     private static AtomicReference<EventSink> sAppBarButtonPressedEventEmitter = new AtomicReference<>();
+    private static AtomicReference<EventSink> sToolChangedEventEmitter = new AtomicReference<>();
 
     private static HashMap<Annot, Integer> mSelectedAnnots;
 
@@ -267,6 +268,10 @@ public class FlutterDocumentActivity extends DocumentActivity implements ViewerC
         sAppBarButtonPressedEventEmitter.set(emitter);
     }
 
+    public static void setToolChangedEventEmitter(EventSink emitter) {
+        sToolChangedEventEmitter.set(emitter);
+    }
+
 
     public static void setFlutterLoadResult(Result result) {
         sFlutterLoadResult.set(result);
@@ -330,8 +335,9 @@ public class FlutterDocumentActivity extends DocumentActivity implements ViewerC
         return sLeadingNavButtonPressedEventEmitter.get();
     }
 
+    @Override
     public EventSink getShareDecisionsEventEmitter() {
-        return sLeadingNavButtonPressedEventEmitter.get();
+        return sAnnotationMenuPressedEventEmitter.get();
     }
 
     @Override
@@ -361,6 +367,11 @@ public class FlutterDocumentActivity extends DocumentActivity implements ViewerC
     @Override
     public EventSink getAppBarButtonPressedEventEmitter() {
         return sAppBarButtonPressedEventEmitter.get();
+    }
+
+    @Override
+    public EventSink getToolChangedEventEmitter() {
+        return sToolChangedEventEmitter.get();
     }
 
 
@@ -446,6 +457,7 @@ public class FlutterDocumentActivity extends DocumentActivity implements ViewerC
 
         // Hygen Generated Event Listeners (4)
         sAppBarButtonPressedEventEmitter.set(null);
+        sToolChangedEventEmitter.set(null);
 
         detachActivity();
     }
