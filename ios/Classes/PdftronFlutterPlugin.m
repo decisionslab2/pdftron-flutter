@@ -25,6 +25,7 @@
 // Hygen Generated Event Listeners (1)
 @property (nonatomic, strong) FlutterEventSink appBarButtonPressedEventSink;
 @property (nonatomic, strong) FlutterEventSink toolChangedEventSink;
+@property (nonatomic, strong) FlutterEventSink shareDecisionsEventSink;
 
 @property (nonatomic, assign, getter=isWidgetView) BOOL widgetView;
 @property (nonatomic, assign, getter=isMultiTabSet) BOOL multiTabSet;
@@ -200,6 +201,10 @@
     FlutterEventChannel* toolChangedEventChannel = [FlutterEventChannel eventChannelWithName:PTToolChangedEventKey binaryMessenger:messenger];
 
     [toolChangedEventChannel setStreamHandler:self];
+
+    FlutterEventChannel* shareDecisionsEventChannel = [FlutterEventChannel eventChannelWithName:PTShareDecisionsEventKey binaryMessenger:messenger];
+
+    [shareDecisionsEventChannel setStreamHandler:self];
 
 }
 
@@ -1289,6 +1294,9 @@
         case toolChangedId:
             self.toolChangedEventSink = events;
             break;
+        case shareDecisionsId:
+            self.shareDecisionsEventSink = events;
+            break;
     }
     
     return Nil;
@@ -1354,6 +1362,9 @@
             break;
         case toolChangedId:
             self.toolChangedEventSink = nil;
+            break;
+        case shareDecisionsId:
+            self.shareDecisionsEventSink = nil;
             break;
     }
     
@@ -1533,6 +1544,22 @@
     if (self.toolChangedEventSink != nil)
     {
         self.toolChangedEventSink(toolChangedString);
+    }
+}
+
+- (void)documentController:(PTDocumentController *)documentController shareDecisions:(NSString *)xfdfCommand
+{
+    if (self.shareDecisionsEventSink != nil)
+    {
+        self.shareDecisionsEventSink(xfdfCommand);
+    }
+}
+
+- (void)decisionsButtonPressed:(UIBarButtonItem *)barButtonItem
+{
+    if (self.shareDecisionsEventSink != nil)
+    {
+        self.shareDecisionsEventSink(@"DecisionsButtonClicked");
     }
 }
 

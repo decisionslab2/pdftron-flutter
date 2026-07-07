@@ -202,6 +202,9 @@ static NSString * const PTStrikeoutWhiteListKey = @"Strikeout";
 static NSString * const PTUnderlineWhiteListKey = @"Underline";
 static NSString * const PTSquigglyWhiteListKey = @"Squiggly";
 
+// Decisions custom keys
+static NSString * const PTShareDecisionsAnnotationsKey = @"shareDecisionsAnnotations";
+
 // function
 
 static NSString * const PTGetPlatformVersionKey = @"getPlatformVersion";
@@ -339,6 +342,7 @@ static NSString *const PTScrollChangedEventKey = @"scroll_changed_event";
 static NSString * const PTAnnotationToolbarItemPressedEventKey = @"annotation_toolbar_item_pressed_event";
 static NSString * const PTAppBarButtonPressedEventKey = @"app_bar_button_pressed_event";
 static NSString * const PTToolChangedEventKey = @"tool_changed_event";
+static NSString * const PTShareDecisionsEventKey = @"share_decisions_event";
 
 // fit mode
 static NSString * const PTFitPageKey = @"FitPage";
@@ -517,6 +521,7 @@ typedef enum
     annotationToolbarItemPressedId,
     appBarButtonPressedId,
     toolChangedId,
+    shareDecisionsId,
 } EventSinkId;
 
 @interface PdftronFlutterPlugin : NSObject<FlutterPlugin, FlutterStreamHandler, FlutterPlatformView>
@@ -546,6 +551,8 @@ typedef enum
 - (void)documentController:(PTDocumentController *)docVC annotationToolbarItemPressed:(NSString *)annotationToolbarItemPressedId;
 - (void)documentController:(PTDocumentController *)docVC appBarButtonPressed:(NSString *)appBarButtonPressedString;
 - (void)documentController:(PTDocumentController *)docVC toolChanged:(NSString *)toolChangedString;
+- (void)documentController:(PTDocumentController *)documentController shareDecisions:(NSString *)xfdfCommand;
+- (void)decisionsButtonPressed:(UIBarButtonItem *)barButtonItem;
 
 - (void)topLeftButtonPressed:(UIBarButtonItem *)barButtonItem;
 
