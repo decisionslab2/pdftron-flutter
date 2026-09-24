@@ -1,3 +1,12 @@
+# 1.0.1-60 - September 18, 2026
+- Update annotation author to display on annotation list/comments in iOS
+
+# 1.0.1-59 - August 25, 2026
+- Fix issue with missing resolve calls on Android
+
+# 1.0.1-58 - August 19, 2026
+- Update Android to v12.1.0
+
 # 1.0.1-57 - July 8, 2026
 - Update Android to v12.0.0
 
