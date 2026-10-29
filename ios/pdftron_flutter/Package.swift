@@ -14,7 +14,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/ApryseSDK/pdftron-apple-package.git",
-            .upToNextMajor(from: "12.2.0")
+            exact: "12.2.30566"
         )
     ],
     targets: [
