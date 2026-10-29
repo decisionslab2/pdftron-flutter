@@ -4271,6 +4271,14 @@ public class PluginUtils {
         if (component.getToolManager() != null) {
             component.getToolManager().setStylusAsPen(component.isUseStylusAsPen());
             component.getToolManager().setSignSignatureFieldsWithStamps(component.isSignSignatureFieldWithStamps());
+            String userId = component.getUserId();
+            if (userId != null && !userId.isEmpty()) {
+                component.getToolManager().setAuthorId(userId);
+                String userName = component.getUserName();
+                if (userName != null && !userName.isEmpty()) {
+                    component.getToolManager().setAuthorName(userName);
+                }
+            }
         }
 
         addListeners(component);
